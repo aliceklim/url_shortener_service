@@ -18,7 +18,7 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
 server:
-  port: 8080
+  port: 8088
 
 logging:
   level:
@@ -32,3 +32,7 @@ hashgenerator:
 hash:
   maxRange: 10000
   batchSize: 1000
+
+url:
+  shortener:
+    address: https://sh.com/
