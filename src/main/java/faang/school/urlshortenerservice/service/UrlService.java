@@ -1,5 +1,6 @@
 package faang.school.urlshortenerservice.service;
 
+import faang.school.urlshortenerservice.cache.HashCache;
 import faang.school.urlshortenerservice.dto.UrlDto;
 import faang.school.urlshortenerservice.entity.Url;
 import faang.school.urlshortenerservice.mapper.UrlMapper;
@@ -18,7 +19,7 @@ import static io.lettuce.core.ShutdownArgs.Builder.save;
 @RequiredArgsConstructor
 public class UrlService {
 
-    private final HashCash hashCash;
+    private final HashCache hashCache;
     private final UrlRedisCacheRepository urlRedisCacheRepository;
     private final UrlMapper urlMapper;
     private final UrlRepository urlRepository;
@@ -28,7 +29,7 @@ public class UrlService {
 
     @Transactional
     public UrlDto shortenUrl(UrlDto urlDto){
-        String hash = hashCash.getHash();
+        String hash = hashCache.getHash();
         String url = urlDto.getUrl();
 
         urlDto.setUrl(formatUrl(url));
