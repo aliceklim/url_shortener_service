@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface HashRepository extends JpaRepository<Url, String> {
+public interface HashRepository extends JpaRepository<String, String> {
 
     @Query(nativeQuery = true, value = """
             SELECT nextval('unique_number_seq') FROM generate_series(1, ?)

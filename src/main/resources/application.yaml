@@ -30,9 +30,27 @@ hashgenerator:
   threadpool-queue-capacity: 100
 
 hash:
+  unique-number:
+    range: 100
   maxRange: 10000
   batchSize: 1000
+  cache:
+    poll-timeout: 100 # milliseconds
+    size: 10
+    min-fill: 20 # percentage
 
 url:
   shortener:
     address: https://sh.com/
+
+async:
+  generator-thread-pool:
+    settings:
+      core-pool-size: 4
+      max-pool-size: 8
+      queue-capacity: 100
+  cache-thread-pool:
+    settings:
+      core-pool-size: 4
+      max-pool-size: 8
+      queue-capacity: 100
