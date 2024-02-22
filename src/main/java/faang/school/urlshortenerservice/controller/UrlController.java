@@ -33,7 +33,7 @@ public class UrlController {
         return urlService.shortenUrl(urlDto);
     }
 
-    @GetMapping("{/hash}}")
+    @GetMapping("{hash}")
     @ResponseStatus(HttpStatus.FOUND)
     public RedirectView redirectToOriginalUrl(@PathVariable String hash){
         Url originalUrl = urlService.getOriginalUrl(hash);

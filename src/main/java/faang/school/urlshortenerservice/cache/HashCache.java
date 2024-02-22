@@ -76,6 +76,7 @@ public class HashCache {
             try{
                 hashRepository.getHashBatch(cacheSize - cache.size()).forEach(this::addHashToCache);
                 hashGenerator.generateBatch();
+                log.info("Cache filled");
             } finally {
                 lock.unlock();
                 log.info("Cache is unlocked by {}", Thread.currentThread().getName());
