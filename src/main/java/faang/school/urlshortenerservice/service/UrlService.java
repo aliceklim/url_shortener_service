@@ -3,6 +3,7 @@ package faang.school.urlshortenerservice.service;
 import faang.school.urlshortenerservice.cache.HashCache;
 import faang.school.urlshortenerservice.dto.UrlDto;
 import faang.school.urlshortenerservice.entity.Url;
+import faang.school.urlshortenerservice.exception.HashNotFoundException;
 import faang.school.urlshortenerservice.mapper.UrlMapper;
 import faang.school.urlshortenerservice.repository.UrlRedisCacheRepository;
 import faang.school.urlshortenerservice.repository.UrlRepository;
@@ -11,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import static io.lettuce.core.ShutdownArgs.Builder.save;
 
 @Service
 @Slf4j
@@ -43,6 +42,18 @@ public class UrlService {
         log.info("Link {} and its hash have been saved to Redis", urlDto.getUrl());
         return urlMapper.toDto(savedEntity);
 
+    }
+
+    public Url getOriginalUrl (String hash){
+        Url cachedUrl = urlRedisCacheRepository.get(hash).orElse(null);
+        if (cachedUrl == null){
+            log.info("hash {} not found in cache", hash);
+            cachedUrl = urlRepository.findByHash(hash)
+                    .orElseThrow(() -> new HashNotFoundException(String.format("hash {} not found in DB", hash)));
+        }
+
+        log.info("hash {} found", hash);
+        return cachedUrl;
     }
 
     private String formatUrl(String url){
