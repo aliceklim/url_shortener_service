@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class GeneratorScheduler {
     private HashGenerator hashGenerator;
 
-    @Scheduled(cron = "${hash.generation.scheduler.cron}")
+    @Scheduled(cron = "${hash.scheduler.generation.cron}")
     public void generateUniqueNumbers(){
         log.info("GeneratorScheduler started at {}", LocalDateTime.now());
         hashGenerator.generateBatch();
