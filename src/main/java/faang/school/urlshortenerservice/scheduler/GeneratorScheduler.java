@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Slf4j
 public class GeneratorScheduler {
-    private HashGenerator hashGenerator;
+    private final HashGenerator hashGenerator;
 
     @Scheduled(cron = "${hash.scheduler.generation.cron}")
     public void generateUniqueNumbers(){
