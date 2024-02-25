@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 public class CleanerScheduler {
-    private UrlRepository urlRepository;
-    private HashRepository hashRepository;
+    private final UrlRepository urlRepository;
+    private final HashRepository hashRepository;
 
     /**
      * Once a day deletes url older than 1yo
