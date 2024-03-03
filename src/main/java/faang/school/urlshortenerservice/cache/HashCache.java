@@ -47,6 +47,7 @@ public class HashCache {
      * If the cache is filled to less than min %, a new batch of hashes is fetched asynchronously
      */
     public String getHash() {
+        int result = cache.size() * 100 / cacheSize;
         if (cache.size() * 100 / cacheSize < minFill) {
             log.info("HashCache getting new hashes for cache");
             hashCacheThreadPool.execute(this::fillCache);
@@ -71,7 +72,7 @@ public class HashCache {
      */
     public void fillCache(){
         boolean isLocked = lock.tryLock();
-        if (isLocked){
+        if (!isLocked){
             log.info("Cache is locked by {}", Thread.currentThread().getName());
             try{
                 hashRepository.getHashBatch(cacheSize - cache.size()).forEach(this::addHashToCache);
