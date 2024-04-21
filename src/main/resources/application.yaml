@@ -34,6 +34,12 @@ hash:
     range: 100
   maxRange: 10000
   batchSize: 1000
+  scheduler:
+    generation:
+      cron: "0 */12 * * * *" # every 12 hours
+    deletion:
+      cron:  "0 0 0 * * ?" # every 24 hours
+
   cache:
     poll-timeout: 100 # milliseconds
     size: 10
